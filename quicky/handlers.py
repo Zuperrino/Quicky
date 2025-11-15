@@ -2,7 +2,7 @@
 from __future__ import annotations
 
 import inspect
-from dataclasses import MISSING, dataclass
+from dataclasses import dataclass
 from typing import Annotated, Any, Mapping, Optional, get_args, get_origin
 from urllib.parse import parse_qs
 
@@ -18,6 +18,7 @@ from .exceptions import HTTPError, ValidationError
 from .routing import Route
 from .serializers import normalize_response
 from .types import (
+    PARAM_DEFAULT_UNSET,
     ParamSource,
     ParameterInfo,
     Request,
@@ -95,7 +96,7 @@ def build_handler_spec(handler: Any) -> HandlerSpec:
         adapter = PydanticTypeAdapter(resolved_type)
         alias = metadata.alias or name
         default_value = default
-        if default_value is UNSET and metadata.default is not MISSING:
+        if default_value is UNSET and metadata.default is not PARAM_DEFAULT_UNSET:
             default_value = metadata.default
         parameters.append(
             ParameterSpec(

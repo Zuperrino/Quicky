@@ -36,4 +36,7 @@ homepage = "https://github.com/Zuperrino/quicky"
 source = "https://github.com/Zuperrino/quicky"
 issues = "https://github.com/Zuperrino/quicky/issues"
 
+[project.scripts]
+quicky = "quicky.cli:main"
+
 

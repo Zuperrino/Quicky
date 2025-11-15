@@ -1,7 +1,7 @@
 # pyright: reportMissingImports=false
 from __future__ import annotations
 
-from dataclasses import MISSING, dataclass, field
+from dataclasses import dataclass, field
 from enum import Enum
 from typing import (
     Annotated,
@@ -32,13 +32,16 @@ class ParamSource(str, Enum):
     DEPENDENCY = "dependency"
 
 
+PARAM_DEFAULT_UNSET = object()
+
+
 @dataclass(slots=True)
 class ParameterInfo:
     source: ParamSource
+    default: Any = field(default=PARAM_DEFAULT_UNSET)
     alias: str | None = None
     description: str | None = None
     is_required: bool = True
-    default: Any = field(default=MISSING)
 
 
 T = TypeVar("T")
@@ -144,4 +147,5 @@ __all__ = [
     "Request",
     "Response",
     "Scope",
+    "PARAM_DEFAULT_UNSET",
 ]
